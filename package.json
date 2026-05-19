@@ -1,57 +1,62 @@
 {
-  "name": "it30",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --port 3003",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@nextui-org/button": "^2.0.38",
-    "@nextui-org/card": "^2.0.34",
-    "@nextui-org/input": "^2.2.5",
-    "@nextui-org/navbar": "^2.0.37",
-    "@nextui-org/react": "^2.4.8",
-    "@nextui-org/system": "^2.2.6",
-    "@nextui-org/theme": "^2.2.11",
-    "framer-motion": "^11.12.0",
-    "github-syntax-dark": "^0.5.0",
-    "html-react-parser": "^5.2.0",
-    "lucide-react": "^0.462.0",
-    "next": "14.2.18",
-    "react": "^18",
-    "react-dom": "^18"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.18",
-    "postcss": "^8",
-    "sass": "^1.81.0",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  },
-  "eslintConfig": {
-    "extends": [
-      "next/core-web-vitals",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "rules": {
-      "@typescript-eslint/no-unused-vars": "off",
-      "react/react-in-jsx-scope": "off",
-      "no-console": "warn",
-      "no-unused-vars": "warn"
+    "name": "my-blog",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "eslint .",
+        "lint:fix": "eslint --max-warnings=0 .",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check",
+        "prepare": "husky"
+    },
+    "dependencies": {
+        "@heroui/react": "^3.0.5",
+        "@heroui/styles": "^3.0.5",
+        "@tanstack/react-query": "^5.100.10",
+        "github-slugger": "^2.0.0",
+        "lucide-react": "^1.16.0",
+        "next": "^16.2.6",
+        "next-themes": "^0.4.6",
+        "react": "^19.2.6",
+        "react-dom": "^19.2.6",
+        "react-markdown": "^10.1.0",
+        "rehype-highlight": "^7.0.2",
+        "rehype-slug": "^6.0.0",
+        "remark-gfm": "^4.0.1"
+    },
+    "devDependencies": {
+        "@tailwindcss/postcss": "^4.3.0",
+        "@trivago/prettier-plugin-sort-imports": "6.0.2",
+        "@types/hast": "^3.0.4",
+        "@types/node": "^24.10.1",
+        "@types/react": "^19.2.2",
+        "@types/react-dom": "^19.2.2",
+        "eslint": "^9.39.1",
+        "eslint-config-next": "^16.2.6",
+        "eslint-config-prettier": "^10.1.8",
+        "husky": "^9.1.7",
+        "lint-staged": "^17.0.5",
+        "prettier": "3.8.1",
+        "prettier-plugin-tailwindcss": "0.7.2",
+        "tailwindcss": "^4.3.0",
+        "typescript": "^5.9.3"
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx,mjs,cjs,json,md,css}": [
+            "prettier --write"
+        ],
+        "*.{js,jsx,ts,tsx,mjs,cjs}": [
+            "eslint --fix"
+        ]
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "@parcel/watcher",
+            "sharp",
+            "unrs-resolver"
+        ]
     }
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "semi": false,
-    "printWidth": 80
-  }
 }

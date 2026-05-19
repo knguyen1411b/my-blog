@@ -1,29 +1,89 @@
-# Blog Website
+# My Blog
 
-This project is a simple blog website built using modern technologies to simplify the process of writing and managing blogs.
+Editorial blog platform powered by **Next.js App Router** and **GitHub Discussions**.
 
-## Author
+![My Blog Demo](app/image.png)
 
-- **Author**: [knguyen1411b](https://github.com/knguyen-1411)
-- **Contact**: Reach out via GitHub or other provided channels.
+> [!TIP]
+> This project reads content directly from GitHub Discussions, so you only need a valid `GITHUB_TOKEN` to run it.
 
-## Technologies Used
+## Highlights
 
-- **Next.js 14**: Built with the latest version of Next.js, offering efficient rendering, dynamic routing, and optimized page loading.
-- **GraphQL**: Fetches data from GitHub using the GraphQL API, ensuring fast and flexible data handling.
-- **TailwindCSS**: Used for UI design, enabling quick and optimized styling.
-- **TypeScript**: Adds type safety, reduces runtime errors, and improves code maintainability.
+- Editorial-style UI with light/dark mode
+- Blog list + blog detail pages with Markdown rendering
+- Sticky table of contents with active section tracking
+- Comments and replies rendered from Discussion API
+- TanStack Query for client-side data fetching and caching
+- HeroUI + Tailwind CSS v4 UI system
 
-## Basic Overview
+## Tech Stack
 
-- **Purpose**: To create a simple and user-friendly platform for managing and displaying content from GitHub Discussions.
-- **Key Features**:
-  - Displays a list of blog posts sourced from GitHub Discussions.
-  - Beautiful, lightweight, and responsive design.
-  - Easy to extend and deploy on platforms like Vercel.
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- HeroUI
+- TanStack Query
+- lucide-react
 
-## Notes
+## Quick Start
 
-- This project can be further enhanced with features like search functionality, post categorization, or additional non-blog content.
+### 1. Install dependencies
 
-\_Thank you for checking out
+```bash
+pnpm install
+```
+
+### 2. Configure environment
+
+Create `.env.local`:
+
+```env
+GITHUB_TOKEN=your_github_token
+```
+
+### 3. Run in development
+
+```bash
+pnpm dev
+```
+
+Open: `http://localhost:3000`
+
+## Scripts
+
+- `pnpm dev` - start development server
+- `pnpm build` - production build
+- `pnpm start` - run production server
+- `pnpm lint` - run ESLint
+- `pnpm lint:fix` - fix lint issues
+- `pnpm format` - format code with Prettier
+- `pnpm format:check` - verify formatting
+
+## Project Structure
+
+```text
+app/
+  api/                 # Route handlers for blogs and profile data
+  [id]/                # Blog detail route
+  globals.css          # Global design tokens and base styles
+  layout.tsx           # Root layout and providers
+  providers.tsx        # TanStack Query + theme providers
+features/
+  blog/                # Blog domain: hooks, components, services, types
+  home/                # Home domain: hooks, components, services, types
+components/            # Shared UI components
+lib/                   # GraphQL, constants, and utility helpers
+```
+
+## CI and Code Quality
+
+- GitHub Actions workflow: `.github/workflows/ci.yml`
+- Prettier + ESLint configured
+- Husky + lint-staged enabled for pre-commit checks
+
+## Project Documents
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Contributing Guide](CONTRIBUTING.md)
+- [Security Policy](SECURITY.md)

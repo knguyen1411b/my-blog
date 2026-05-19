@@ -1,7 +1,0 @@
-.cardui{
-    background: #4863789d;
-    transition: all 0.3s ease-in-out;
-}
-.cardui:hover{
-    background: rgb(40, 59, 93);
-}

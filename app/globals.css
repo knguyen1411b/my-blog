@@ -1,0 +1,141 @@
+@import 'tailwindcss';
+
+@import '@heroui/styles';
+
+:root {
+    --bg: #f7f8fb;
+    --bg-elevated: #ffffff;
+    --surface: #ffffff;
+    --surface-soft: #f2f4f8;
+    --text: #0f1728;
+    --text-muted: #475569;
+    --border: #d7deea;
+    --accent: #0f4fa8;
+    --accent-soft: #dce9ff;
+    --ring: #1d4ed8;
+    --shadow-soft: 0 20px 55px rgba(15, 23, 40, 0.08);
+    --radius-xl: 1.25rem;
+    --radius-2xl: 1.8rem;
+    --space-section: clamp(2.8rem, 5vw, 5rem);
+}
+
+.dark {
+    --bg: #090d16;
+    --bg-elevated: #0f1523;
+    --surface: #121a2b;
+    --surface-soft: #172238;
+    --text: #ebf0fa;
+    --text-muted: #a9b6ce;
+    --border: #2a364c;
+    --accent: #7fb0ff;
+    --accent-soft: #1c2e4e;
+    --ring: #8cb9ff;
+    --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--text);
+    background:
+        radial-gradient(1000px 620px at 10% -15%, color-mix(in oklab, var(--accent) 14%, transparent), transparent),
+        radial-gradient(820px 560px at 100% -20%, color-mix(in oklab, #7a91be 18%, transparent), transparent),
+        linear-gradient(180deg, color-mix(in oklab, var(--bg-elevated) 72%, var(--bg)), var(--bg));
+    font-family: var(--font-sans), 'Segoe UI', sans-serif;
+    text-rendering: optimizeLegibility;
+}
+
+.container {
+    margin-inline: auto;
+    width: min(1180px, calc(100% - 2rem));
+}
+
+.glass-panel {
+    border: 1px solid color-mix(in oklab, var(--border) 84%, transparent);
+    background: color-mix(in oklab, var(--surface) 90%, transparent);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+}
+
+.hero-grid {
+    background-image:
+        linear-gradient(color-mix(in oklab, var(--border) 26%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in oklab, var(--border) 26%, transparent) 1px, transparent 1px);
+    background-size: 36px 36px;
+}
+
+.editorial-title {
+    font-family: var(--font-serif), Georgia, serif;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.eyebrow {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.markdown-body {
+    line-height: 1.82;
+    color: var(--text);
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+    margin-top: 2.2rem;
+    margin-bottom: 0.95rem;
+    font-family: var(--font-serif), Georgia, serif;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+    scroll-margin-top: 7rem;
+}
+
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body blockquote {
+    margin: 1rem 0;
+    color: color-mix(in oklab, var(--text) 85%, var(--text-muted));
+}
+
+.markdown-body blockquote {
+    border-left: 3px solid color-mix(in oklab, var(--accent) 58%, transparent);
+    background: color-mix(in oklab, var(--surface-soft) 62%, transparent);
+    border-radius: 0.9rem;
+    padding: 0.8rem 1rem;
+}
+
+.markdown-body a {
+    color: var(--accent);
+    font-weight: 600;
+    text-underline-offset: 3px;
+}
+
+.markdown-body pre {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: color-mix(in oklab, var(--surface-soft) 84%, #000);
+    padding: 1rem;
+}
+
+.markdown-body code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:where(a, button, [role='button'], [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+}
