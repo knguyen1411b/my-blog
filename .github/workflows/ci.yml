@@ -27,7 +27,7 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
-                  node-version: 20
+                  node-version: 24
                   cache: pnpm
                   cache-dependency-path: pnpm-lock.yaml
 
@@ -40,4 +40,6 @@ jobs:
               run: pnpm lint
 
             - name: Build
+              env:
+                  NEXT_PUBLIC_SITE_URL: https://knguyen1411b-blog.vercel.app
               run: pnpm build
