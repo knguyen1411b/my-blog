@@ -1,0 +1,6 @@
+export * from './navbar'
+export { Footer } from './Footer'
+export { default as BackgroundEffect } from './background-effect'
+export { default as SpotlightCursor } from './spotlight-cursor'
+export { ScrollToTopButton } from './scroll-to-top'
+export { MainContent } from './main-content'

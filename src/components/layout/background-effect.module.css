@@ -1,0 +1,110 @@
+@keyframes movePurplekf {
+    0% {
+        transform: translate(-50px, 40px) scale(1);
+        opacity: 0.4;
+    }
+
+    25% {
+        transform: translate(-100px, 80px) scale(1.2);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(-20px, 120px) scale(0.9);
+        opacity: 0.3;
+    }
+
+    75% {
+        transform: translate(-80px, 60px) scale(1.1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translate(-50px, 40px) scale(1);
+        opacity: 0.4;
+    }
+}
+
+@keyframes moveCyankf {
+    0% {
+        transform: translate(159.005px, 35.1033px) scale(1);
+        opacity: 0.4;
+    }
+
+    25% {
+        transform: translate(200px, 70px) scale(1.1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(120px, 100px) scale(0.8);
+        opacity: 0.3;
+    }
+
+    75% {
+        transform: translate(180px, 50px) scale(1.2);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translate(159.005px, 35.1033px) scale(1);
+        opacity: 0.4;
+    }
+}
+
+@keyframes moveBluekf {
+    0% {
+        transform: translate(306.1px, 13.6121px) scale(1);
+        opacity: 0.4;
+    }
+
+    25% {
+        transform: translate(280px, 50px) scale(1.1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(330px, 80px) scale(0.9);
+        opacity: 0.3;
+    }
+
+    75% {
+        transform: translate(260px, 30px) scale(1.2);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translate(306.1px, 13.6121px) scale(1);
+        opacity: 0.4;
+    }
+}
+
+.movePurple,
+.moveCyan,
+.moveBlue {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+.movePurple {
+    animation: movePurplekf 7s ease-in-out infinite;
+}
+
+.moveCyan {
+    animation: moveCyankf 5s ease-in-out infinite;
+}
+
+.moveBlue {
+    animation: moveBluekf 6s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .movePurple,
+    .moveCyan,
+    .moveBlue {
+        animation: none !important;
+        transform: none !important;
+        will-change: auto !important;
+    }
+}

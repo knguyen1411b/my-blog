@@ -1,0 +1,54 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function: kiểm tra người dùng đã đăng nhập Firebase Auth
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Quy tắc cho collection 'blogs' (Bài viết)
+    match /blogs/{blogId} {
+      // Cho phép tất cả mọi người đọc bài viết đã xuất bản (public)
+      // Quản trị viên đã đăng nhập có thể đọc cả bản nháp (draft)
+      allow read: if resource.data.status == 'published' || isAuthenticated();
+      
+      // Chỉ quản trị viên đã đăng nhập mới có quyền tạo và xóa bài viết
+      allow create, delete: if isAuthenticated();
+
+      // Cập nhật bài viết:
+      // - Quản trị viên đã đăng nhập có toàn quyền sửa nội dung
+      // - Độc giả vãng lai được phép tương tác:
+      //   + Tăng số lượt xem (views)
+      //   + Tăng số lượt thích (likes)
+      //   + Thêm bình luận mới vào mảng (comments, commentsCount)
+      allow update: if isAuthenticated() || (
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views']) ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes']) ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['comments', 'commentsCount']) ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views', 'likes', 'comments', 'commentsCount'])
+      );
+
+      // Hỗ trợ subcollection 'comments' (Bình luận cấp con)
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if request.resource.data.content is string 
+                      && request.resource.data.content.size() > 0 
+                      && request.resource.data.content.size() <= 2000;
+        allow update, delete: if isAuthenticated();
+      }
+    }
+
+    // Quy tắc cho collection 'users' (Thông tin tác giả / admin)
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Mặc định từ chối các collection không được định nghĩa rõ ràng
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
