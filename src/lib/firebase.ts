@@ -1,6 +1,6 @@
 import { getApp, getApps, initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { getFirestore, initializeFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -22,7 +22,18 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 const auth = getAuth(app)
-const db = getFirestore(app)
+
+let db: ReturnType<typeof getFirestore>
+try {
+    // Kích hoạt experimentalAutoDetectLongPolling giúp tự động chuyển sang HTTP long polling
+    // khi trình duyệt cài AdBlocker / Brave Shields chặn WebChannel stream (/Listen/channel)
+    db = initializeFirestore(app, {
+        experimentalAutoDetectLongPolling: true
+    })
+} catch {
+    db = getFirestore(app)
+}
+
 const storage = getStorage(app)
 
 export { app, auth, db, storage }

@@ -31,8 +31,8 @@ export default function AdminDashboardPage() {
     const [user, setUser] = useState<User | null>(null)
     const [loadingAuth, setLoadingAuth] = useState(true)
 
-    // Query all blogs (status: 'all' for admin dashboard)
-    const { data: blogs = [], isLoading: loadingBlogs } = useBlogs({ status: 'all' })
+    // Query all blogs (status: 'all' for admin dashboard, chỉ thực hiện khi đã xác thực Firebase Auth)
+    const { data: blogs = [], isLoading: loadingBlogs } = useBlogs({ status: 'all' }, undefined, Boolean(user))
     const deleteMutation = useDeleteBlog()
     const toggleFeaturedMutation = useToggleFeaturedBlog()
 

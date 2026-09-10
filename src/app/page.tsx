@@ -1,48 +1,16 @@
-'use client'
+import { Suspense } from 'react'
 
-import { Suspense, useCallback, useEffect, useState } from 'react'
+import { getBlogs } from '@/features/blog/service/blog.service'
+import { HomeContainer } from '@/features/home'
 
-import { Welcome } from '@/components/welcome'
-import { HomeSite } from '@/features/home'
-import { dismissWelcome, shouldShowWelcome } from '@/lib/welcome-state'
+export const revalidate = 60
 
-function HomeContent() {
-    const [welcome, setWelcome] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const hasHash = Boolean(window.location.hash)
-            if (hasHash) {
-                dismissWelcome()
-                return false
-            }
-        }
-        return shouldShowWelcome()
-    })
+export default async function HomePage() {
+    const initialBlogs = await getBlogs()
 
-    const handleDismiss = useCallback(() => {
-        dismissWelcome()
-        setWelcome(false)
-    }, [])
-
-    useEffect(() => {
-        if (welcome) {
-            const timer = setTimeout(() => {
-                handleDismiss()
-            }, 4500)
-
-            return () => {
-                clearTimeout(timer)
-                dismissWelcome()
-            }
-        }
-    }, [welcome, handleDismiss])
-
-    return welcome ? <Welcome onDismiss={handleDismiss} /> : <HomeSite />
-}
-
-export default function HomePage() {
     return (
         <Suspense fallback={<div className="min-h-screen bg-[#07090e]" />}>
-            <HomeContent />
+            <HomeContainer initialBlogs={initialBlogs} />
         </Suspense>
     )
 }

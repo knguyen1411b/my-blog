@@ -72,9 +72,9 @@ function BlogEditorContent() {
         return () => unsubscribe()
     }, [router])
 
-    // Load existing post if editing
+    // Load existing post if editing (chờ auth hoàn tất để có token đọc bài viết bản nháp/draft)
     useEffect(() => {
-        if (!editId) return
+        if (!editId || loadingAuth) return
 
         async function loadPost() {
             setFetchingPost(true)
@@ -101,7 +101,7 @@ function BlogEditorContent() {
         }
 
         loadPost()
-    }, [editId])
+    }, [editId, loadingAuth])
 
     // Title change auto updates slug if autoSlug enabled
     const handleTitleChange = (val: string) => {

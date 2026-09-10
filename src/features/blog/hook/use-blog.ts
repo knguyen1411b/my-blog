@@ -13,13 +13,14 @@ import {
 } from '@/features/blog/service/firebase-blog.service'
 import type { IBlog, IBlogDetail } from '@/features/blog/types/blog'
 
-export function useBlogs(options: GetBlogsOptions = {}, initialData?: IBlog[]) {
+export function useBlogs(options: GetBlogsOptions = {}, initialData?: IBlog[], enabled = true) {
     return useQuery({
-        queryKey: ['blogs', options],
+        queryKey: ['blogs', options, enabled],
         queryFn: async (): Promise<IBlog[]> => {
             return await getFirebaseBlogs(options)
         },
-        initialData
+        initialData,
+        enabled
     })
 }
 
