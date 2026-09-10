@@ -89,6 +89,10 @@ export const metadata: Metadata = {
         'ai-content-declarations': 'human-authored',
         citation_author: SITE_CONFIG.author.name,
         citation_title: SITE_CONFIG.name
+    },
+    // Google Search Console verification
+    verification: {
+        google: '5C_xXN6XrzNvYiiBlkXoys4q5mpQsosTvLPjlH4xhUk'
     }
 }
 

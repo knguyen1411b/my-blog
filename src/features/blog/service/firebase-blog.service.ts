@@ -41,6 +41,37 @@ export interface GetBlogsOptions {
 }
 
 /**
+ * Chuyển Firestore Timestamp thành chuỗi ISO 8601 để an toàn khi truyền từ Server Component sang Client Component.
+ * Next.js 16 không cho phép truyền object có phương thức .toJSON() (ví dụ: Firestore Timestamp).
+ */
+function serializeTimestamp(value: unknown): string | null {
+    if (!value) return null
+    if (typeof value === 'string') return value
+    if (value && typeof (value as { toDate?: unknown }).toDate === 'function') {
+        return (value as { toDate: () => Date }).toDate().toISOString()
+    }
+    return String(value)
+}
+
+/**
+ * Chuyển một document Firestore thành plain object an toàn cho Server → Client Component.
+ */
+function sanitizeDoc(id: string, data: Record<string, unknown>): Record<string, unknown> {
+    return {
+        ...Object.fromEntries(
+            Object.entries(data).map(([k, v]) => {
+                // Chuyển Timestamp fields thành string
+                if (v && typeof (v as { toDate?: unknown }).toDate === 'function') {
+                    return [k, serializeTimestamp(v)]
+                }
+                return [k, v]
+            })
+        ),
+        id
+    }
+}
+
+/**
  * Lấy danh sách bài viết từ Firestore (hỗ trợ lọc theo trạng thái, chuyên mục)
  */
 export async function getFirebaseBlogs(options: GetBlogsOptions = {}): Promise<IBlog[]> {
@@ -61,26 +92,26 @@ export async function getFirebaseBlogs(options: GetBlogsOptions = {}): Promise<I
         }
 
         let posts = snapshot.docs.map(docSnap => {
-            const data = docSnap.data()
+            const data = docSnap.data() as Record<string, unknown>
             return {
                 id: docSnap.id,
-                slug: data.slug || docSnap.id,
-                title: data.title || '',
-                summary: data.summary || '',
-                content: data.content || '',
+                slug: (data.slug as string) || docSnap.id,
+                title: (data.title as string) || '',
+                summary: (data.summary as string) || '',
+                content: (data.content as string) || '',
                 category: data.category || { id: 'general', name: 'Công Cụ Hữu Ích', slug: 'cong-cu-huu-ich' },
-                tags: data.tags || [],
+                tags: (data.tags as string[]) || [],
                 author: data.author || {
                     name: 'Nguyễn Đình Khánh Nguyên',
                     role: 'Fullstack Software Engineer',
                     avatar: 'https://github.com/knguyen1411b.png'
                 },
-                publishedAt: data.publishedAt || 'Vừa xong',
-                readingTime: data.readingTime || '2 phút',
-                views: data.views || 0,
-                status: data.status || 'published',
+                publishedAt: serializeTimestamp(data.publishedAt) || (data.publishedAt as string) || 'Vừa xong',
+                readingTime: (data.readingTime as string) || '2 phút',
+                views: (data.views as number) || 0,
+                status: (data.status as string) || 'published',
                 featured: Boolean(data.featured),
-                coverImage: data.coverImage || ''
+                coverImage: (data.coverImage as string) || ''
             } as IBlog
         })
 
@@ -96,39 +127,38 @@ export async function getFirebaseBlogs(options: GetBlogsOptions = {}): Promise<I
 }
 
 /**
- * Lấy chi tiết bài viết theo slug hoặc ID từ Firestore
+ * Lấy chi tiết bài viết theo slug hoặc ID từ Firestore.
+ * Tách riêng 2 try-catch để luôn thực hiện fallback getDoc ngay cả khi query slug thất bại.
  */
 export async function getFirebaseBlogBySlug(slugOrId: string): Promise<IBlogDetail | null> {
+    // 1. Thử tìm theo trường slug (có thể fail nếu thiếu index hoặc lỗi network)
     try {
         const blogsRef = collection(db, BLOGS_COLLECTION)
-
-        // 1. Thử tìm theo trường slug
         const q = query(blogsRef, where('slug', '==', slugOrId), limit(1))
         const snapshot = await getDocs(q)
 
         if (!snapshot.empty) {
             const docSnap = snapshot.docs[0]
-            const data = docSnap.data()
-            return {
-                id: docSnap.id,
-                ...data
-            } as IBlogDetail
+            const data = docSnap.data() as Record<string, unknown>
+            return sanitizeDoc(docSnap.id, data) as unknown as IBlogDetail
         }
+    } catch {
+        // Slug query thất bại → tiếp tục thử bước 2
+    }
 
-        // 2. Thử tìm theo document ID trực tiếp
+    // 2. Fallback: tìm trực tiếp theo document ID
+    try {
         const docRef = doc(db, BLOGS_COLLECTION, slugOrId)
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
-            return {
-                id: docSnap.id,
-                ...docSnap.data()
-            } as IBlogDetail
+            const data = docSnap.data() as Record<string, unknown>
+            return sanitizeDoc(docSnap.id, data) as unknown as IBlogDetail
         }
-
-        return null
     } catch {
         return null
     }
+
+    return null
 }
 
 /**
