@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 
 import { JetBrains_Mono, Outfit } from 'next/font/google'
 
+import { Analytics } from '@vercel/analytics/next'
+
 import { BackgroundEffect, ScrollToTopButton, SpotlightCursor } from '@/components/layout'
 import { RootJsonLd } from '@/components/seo/JsonLd'
 import { SITE_CONFIG } from '@/config/site'
@@ -108,6 +110,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <BackgroundEffect />
                     <SpotlightCursor glowColor="130,92,193" />
                     <ScrollToTopButton />
+                    {/* Vercel Analytics: page views, referrers, countries, devices */}
+                    <Analytics />
                 </Providers>
             </body>
         </html>
