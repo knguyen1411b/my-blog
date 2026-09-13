@@ -1,6 +1,6 @@
 /**
  * Cấu hình SEO (Search Engine Optimization) & GEO (Generative Engine Optimization)
- * Tên miền chuẩn: https://knguyen1411b-blog.vercel.app
+ * Tên miền chuẩn: https://blog.ndknguyen.io.vn
  *
  * - SEO: Tối ưu hóa cho công cụ tìm kiếm truyền thống (Google, Bing, Yahoo)
  * - GEO: Tối ưu hóa cho các hệ thống AI thế hệ mới (ChatGPT, Google Gemini, Perplexity AI, Claude)
@@ -11,18 +11,18 @@ export const SITE_CONFIG = {
     shortName: 'KN Blog',
     description:
         'Blog công nghệ cá nhân của Nguyễn Đình Khánh Nguyên - Chia sẻ chuyên sâu về Next.js 16, React 19, TypeScript, kiến trúc đám mây Cloud Firestore và giải pháp AI Pair Programming.',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://knguyen1411b-blog.vercel.app',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.ndknguyen.io.vn',
     ogImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
-    portfolioUrl: 'https://knguyen1411b.vercel.app',
+    portfolioUrl: 'https://ndknguyen.io.vn',
     locale: 'vi_VN',
     languages: {
-        'vi-VN': 'https://knguyen1411b-blog.vercel.app',
-        'en-US': 'https://knguyen1411b-blog.vercel.app'
+        'vi-VN': 'https://blog.ndknguyen.io.vn',
+        'en-US': 'https://blog.ndknguyen.io.vn'
     },
     author: {
         name: 'Nguyễn Đình Khánh Nguyên',
         role: 'Fullstack Software Engineer',
-        url: 'https://knguyen1411b.vercel.app',
+        url: 'https://ndknguyen.io.vn',
         avatar: 'https://github.com/knguyen1411b.png',
         twitter: '@knguyen1411b',
         github: 'https://github.com/knguyen1411b'
@@ -41,7 +41,7 @@ export const SITE_CONFIG = {
         'Khanh Nguyen',
         'Nguyễn Đình Khánh Nguyên',
         'knguyen1411b',
-        'knguyen1411b-blog.vercel.app',
+        'blog.ndknguyen.io.vn',
         'Next.js 16',
         'React 19',
         'Fullstack Software Engineer',

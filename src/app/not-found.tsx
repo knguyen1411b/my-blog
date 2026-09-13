@@ -33,7 +33,7 @@ export default function NotFound() {
                     </Link>
 
                     <Link
-                        href="https://knguyen1411b.vercel.app"
+                        href="https://ndknguyen.io.vn"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 font-medium text-slate-200 backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white active:scale-[0.98] sm:w-auto"

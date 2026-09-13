@@ -7,7 +7,7 @@ import { ArrowUpRight, BookOpen, Briefcase } from 'lucide-react'
 
 import useLenis from '@/hooks/useLenis'
 
-const PORTFOLIO_URL = 'https://knguyen1411b.vercel.app'
+const PORTFOLIO_URL = 'https://ndknguyen.io.vn'
 
 const navItems = [
     { id: 'blog', viewId: 1, label: 'Blog', icon: BookOpen },

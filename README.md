@@ -1,6 +1,6 @@
 # Khanh Nguyen Blog · Engineering & Insights
 
-Blog platform cá nhân chuyên sâu về lập trình, giải pháp hệ thống và công cụ tối ưu hóa, được xây dựng với **Next.js 16 App Router**, **Firebase Cloud Firestore**, và **Firebase Authentication**. Thiết kế đồng bộ hoàn toàn với trang chủ Portfolio [knguyen1411b.vercel.app](https://knguyen1411b.vercel.app).
+Blog platform cá nhân chuyên sâu về lập trình, giải pháp hệ thống và công cụ tối ưu hóa, được xây dựng với **Next.js 16 App Router**, **Firebase Cloud Firestore**, và **Firebase Authentication**. Thiết kế đồng bộ hoàn toàn với trang chủ Portfolio [ndknguyen.io.vn](https://ndknguyen.io.vn).
 
 ---
 

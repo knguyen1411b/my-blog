@@ -14,7 +14,7 @@ interface MmenuResponsiveProps {
     isView?: number
 }
 
-const PORTFOLIO_URL = 'https://knguyen1411b.vercel.app'
+const PORTFOLIO_URL = 'https://ndknguyen.io.vn'
 
 export default function MmenuResponsive({ closeMenu, isView = 1 }: MmenuResponsiveProps) {
     const { scrollTo } = useLenis()

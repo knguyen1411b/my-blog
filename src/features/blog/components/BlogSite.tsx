@@ -35,7 +35,7 @@ import { extractToc } from '@/lib/toc'
 import { MarkdownRenderer } from './MarkdownRenderer'
 import { TableOfContents } from './TableOfContents'
 
-const PORTFOLIO_URL = 'https://knguyen1411b.vercel.app'
+const PORTFOLIO_URL = 'https://ndknguyen.io.vn'
 
 export function BlogSite({ postId, initialBlog }: { postId: number | string; initialBlog?: IBlogDetail }) {
     const router = useRouter()
@@ -302,12 +302,31 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
                 {blog.summary && (
                     <section
                         aria-label="Tóm tắt bài viết"
-                        className="relative mx-auto mb-10 max-w-4xl rounded-2xl border-l-4 border-l-cyan-400 border border-white/10 bg-gradient-to-r from-cyan-950/20 via-slate-900/40 to-[#0c101c]/80 p-5 sm:p-6 text-sm md:text-base leading-relaxed text-slate-300 shadow-xl backdrop-blur-md"
+                        className="relative mx-auto mb-6 max-w-4xl rounded-2xl border-l-4 border-l-cyan-400 border border-white/10 bg-gradient-to-r from-cyan-950/20 via-slate-900/40 to-[#0c101c]/80 p-5 sm:p-6 text-sm md:text-base leading-relaxed text-slate-300 shadow-xl backdrop-blur-md"
                     >
                         <div className="font-mono text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-1">
                             Tóm tắt nội dung
                         </div>
                         <p className="italic">{blog.summary}</p>
+                    </section>
+                )}
+
+                {/* TL;DR Box — GEO: AI bots (ChatGPT, Gemini, Perplexity) thường chọn đoạn này làm câu trả lời trích dẫn */}
+                {(blog.tldr || blog.summary) && (
+                    <section
+                        aria-label="TL;DR - Tóm tắt nhanh"
+                        className="relative mx-auto mb-10 max-w-4xl rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-950/30 via-indigo-950/20 to-[#0c101c]/80 p-5 sm:p-6 shadow-xl backdrop-blur-md"
+                    >
+                        <div className="flex items-center gap-2 mb-3">
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-500/40 bg-purple-950/60 px-3 py-1 font-mono text-[11px] font-bold text-purple-300 tracking-wider">
+                                <Sparkles size={11} className="text-purple-400" />
+                                TL;DR
+                            </span>
+                            <span className="font-mono text-[10px] text-slate-500">— Đọc trong 10 giây</span>
+                        </div>
+                        <p className="text-sm sm:text-base leading-relaxed text-slate-200 font-medium">
+                            {blog.tldr || blog.summary}
+                        </p>
                     </section>
                 )}
 
@@ -421,8 +440,16 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
                             </div>
                         )}
 
-                        {/* Author Profile Dossier Card */}
+                        {/* Hub & Spoke Author Box — chuyển đổi người đọc sang Portfolio */}
                         <div className="rounded-3xl border border-white/[0.08] bg-gradient-to-br from-[#0e1324]/90 via-[#0a0d18]/90 to-[#07090e]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+                            {/* Header label */}
+                            <div className="flex items-center gap-2 mb-5 pb-4 border-b border-white/[0.07]">
+                                <UserCheck size={14} className="text-cyan-400" />
+                                <span className="font-mono text-[11px] font-bold text-cyan-400 uppercase tracking-wider">
+                                    Về tác giả
+                                </span>
+                            </div>
+
                             <div className="flex flex-col sm:flex-row items-start gap-5">
                                 <div className="relative shrink-0">
                                     <Image
@@ -448,9 +475,20 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
                                     <p className="mt-1 font-mono text-xs font-medium text-purple-400">
                                         {blog.author?.role || 'Fullstack Software Engineer'}
                                     </p>
+                                    {/* Bio — contextual in-text CTA */}
                                     <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-300">
                                         {blog.author?.bio ||
-                                            'Kỹ sư phần mềm Fullstack chuyên sâu về Next.js 16, React 19, TypeScript, Java Spring Boot và giải pháp cơ sở dữ liệu đám mây Cloud Firestore.'}
+                                            'Kỹ sư phần mềm Fullstack chuyên sâu về Next.js 16, React 19, TypeScript, Java Spring Boot và giải pháp cơ sở dữ liệu đám mây Cloud Firestore.'}{' '}
+                                        Bạn có thể xem các dự án thực tế tại{' '}
+                                        <a
+                                            href={PORTFOLIO_URL}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="font-semibold text-cyan-300 underline underline-offset-2 hover:text-cyan-200"
+                                        >
+                                            Portfolio cá nhân
+                                        </a>
+                                        .
                                     </p>
 
                                     {/* Tech Chips */}
@@ -467,8 +505,8 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
                                         )}
                                     </div>
 
-                                    {/* Direct Portfolio Link */}
-                                    <div className="mt-5">
+                                    {/* Hub & Spoke CTA row */}
+                                    <div className="mt-5 flex flex-wrap items-center gap-3">
                                         <a
                                             href={PORTFOLIO_URL}
                                             target="_blank"
@@ -476,7 +514,16 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
                                             className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-gradient-to-r from-cyan-500/20 via-indigo-500/20 to-purple-500/20 px-4 py-2 font-mono text-xs font-bold text-cyan-300 shadow-lg transition-all hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] active:scale-95"
                                         >
                                             <Globe size={13} />
-                                            <span>Xem Portfolio của tác giả</span>
+                                            <span>Xem Portfolio ↗</span>
+                                        </a>
+                                        <a
+                                            href="https://www.linkedin.com/in/knguyen1411b"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 rounded-xl border border-sky-400/30 bg-sky-950/30 px-4 py-2 font-mono text-xs font-bold text-sky-300 transition-all hover:border-sky-400 hover:bg-sky-500/20 active:scale-95"
+                                        >
+                                            <span className="font-black text-[11px]">in</span>
+                                            <span>Kết nối LinkedIn</span>
                                         </a>
                                     </div>
                                 </div>

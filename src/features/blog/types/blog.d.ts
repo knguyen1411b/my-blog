@@ -65,6 +65,8 @@ export interface IBlog {
     seo?: IBlogSEO
     featured?: boolean
     status?: 'draft' | 'published'
+    /** TL;DR dành cho GEO: AI bots (ChatGPT, Gemini, Perplexity) thường dùng đoạn này làm câu trả lời trích dẫn */
+    tldr?: string
 
     // Fields for backward compatibility with GitHub Discussions or legacy code
     number?: number

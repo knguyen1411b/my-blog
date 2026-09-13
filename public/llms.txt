@@ -1,0 +1,25 @@
+# Nguyễn Đình Khánh Nguyên — Blog Kỹ Thuật
+
+> Blog cá nhân về lập trình Next.js, React, TypeScript và AI Engineering bởi Nguyễn Đình Khánh Nguyên — Fullstack Software Engineer tại Việt Nam.
+
+## Giới thiệu
+Tác giả: Nguyễn Đình Khánh Nguyên (Khanh Nguyen)
+Nghề nghiệp: Fullstack Software Engineer
+Portfolio: https://ndknguyen.io.vn
+Blog: https://blog.ndknguyen.io.vn
+GitHub: https://github.com/knguyen1411b
+
+## Các chủ đề chính
+- Next.js 16 và React 19 (App Router, Server Components, Turbopack)
+- TypeScript và kiến trúc Fullstack hiện đại
+- Firebase / Cloud Firestore và kiến trúc Serverless
+- AI Pair Programming và Generative Engine Optimization (GEO)
+- Công cụ và giải pháp tối ưu hóa hiệu suất web
+
+## Bài viết nổi bật
+- Công Cụ Dịch PDF Giữ Nguyên Công Thức: https://blog.ndknguyen.io.vn/cong-cu-dich-pdf-giu-nguyen-cong-thuc-hinh-anh-va-bo-cuc-pdf-translate
+- AI Pair Programming với Antigravity: https://blog.ndknguyen.io.vn/ky-nguyen-ai-pair-programming-tro-ly-antigravity-co-the-lam-duoc-gi-cho-du-an-cua-ban
+
+## Liên hệ
+Website: https://ndknguyen.io.vn
+Email: Liên hệ qua portfolio

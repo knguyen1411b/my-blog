@@ -35,10 +35,18 @@ export function RootJsonLd() {
                 '@type': 'Person',
                 '@id': `${SITE_CONFIG.portfolioUrl}/#person`,
                 name: SITE_CONFIG.author.name,
+                alternateName: 'Khanh Nguyen',
                 jobTitle: SITE_CONFIG.author.role,
                 url: SITE_CONFIG.portfolioUrl,
                 image: SITE_CONFIG.author.avatar,
-                sameAs: [SITE_CONFIG.author.github, SITE_CONFIG.portfolioUrl],
+                // sameAs kết nối các profile để Google xây dựng Knowledge Panel
+                sameAs: [
+                    SITE_CONFIG.portfolioUrl,
+                    SITE_CONFIG.url,
+                    SITE_CONFIG.author.github,
+                    `https://twitter.com/${SITE_CONFIG.author.twitter.replace('@', '')}`,
+                    'https://www.linkedin.com/in/knguyen1411b'
+                ],
                 knowsAbout: SITE_CONFIG.expertise,
                 description:
                     'Kỹ sư phần mềm Fullstack chuyên sâu về Next.js 16, React 19, TypeScript, kiến trúc đám mây Cloud Firestore và AI Pair Programming.'
@@ -91,12 +99,14 @@ export function ArticleJsonLd({
         keywords: tags?.join(', ') || '',
         proficiencyLevel: 'Expert',
         isAccessibleForFree: true,
+        // Tham chiếu @id tới thực thể Person trên Portfolio — giúp Google hiểu
+        // mọi bài viết trên Blog đều thuộc cùng tác giả với Portfolio,
+        // tăng Trust Score & E-E-A-T cho cả 2 domain.
         author: {
             '@type': 'Person',
+            '@id': `${SITE_CONFIG.portfolioUrl}/#person`,
             name: SITE_CONFIG.author.name,
-            url: SITE_CONFIG.portfolioUrl,
-            jobTitle: SITE_CONFIG.author.role,
-            sameAs: [SITE_CONFIG.author.github, SITE_CONFIG.portfolioUrl]
+            url: SITE_CONFIG.portfolioUrl
         },
         publisher: {
             '@type': 'Organization',
@@ -113,5 +123,29 @@ export function ArticleJsonLd({
         }
     }
 
-    return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Blog',
+                item: SITE_CONFIG.url
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: title,
+                item: url
+            }
+        ]
+    }
+
+    return (
+        <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+        </>
+    )
 }

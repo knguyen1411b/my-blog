@@ -10,7 +10,7 @@ import type { IBlog } from '@/features/blog/types/blog'
 
 import { BlogCard } from './BlogCard'
 
-const PORTFOLIO_URL = 'https://knguyen1411b.vercel.app'
+const PORTFOLIO_URL = 'https://ndknguyen.io.vn'
 
 export const HomeSite = ({ initialBlogs = [] }: { initialBlogs?: IBlog[] } = {}) => {
     const { data: blogs = initialBlogs, error: blogsError } = useBlogs({ status: 'published' }, initialBlogs)

@@ -10,7 +10,7 @@ interface WelcomeProps {
 }
 
 export function Welcome({ onDismiss }: WelcomeProps = {}) {
-    const LINK = 'knguyen1411b.vercel.app'
+    const LINK = 'ndknguyen.io.vn'
     const [isExiting, setIsExiting] = useState(false)
     const dismissedRef = useRef(false)
 

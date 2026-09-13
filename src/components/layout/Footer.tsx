@@ -9,7 +9,7 @@ import { ArrowUp, ChevronRight, Clock, Cpu, ExternalLink, Layers, MapPin, Shield
 
 import useLenis from '@/hooks/useLenis'
 
-const PORTFOLIO_URL = 'https://knguyen1411b.vercel.app'
+const PORTFOLIO_URL = 'https://ndknguyen.io.vn'
 
 export function Footer() {
     const pathname = usePathname()

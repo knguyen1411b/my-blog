@@ -32,7 +32,7 @@ import {
 
 import { auth } from '@/lib/firebase'
 
-const PORTFOLIO_URL = 'https://knguyen1411b.vercel.app'
+const PORTFOLIO_URL = 'https://ndknguyen.io.vn'
 
 export default function AdminLoginPage() {
     const router = useRouter()
@@ -226,7 +226,7 @@ export default function AdminLoginPage() {
 
                     <div className="flex items-center gap-4 font-mono text-xs text-slate-400">
                         <Link href={PORTFOLIO_URL} target="_blank" className="hover:text-sky-400 transition-colors">
-                            Portfolio: knguyen1411b.vercel.app ↗
+                            Portfolio: ndknguyen.io.vn ↗
                         </Link>
                     </div>
                 </div>
