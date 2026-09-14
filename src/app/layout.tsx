@@ -43,7 +43,10 @@ export const metadata: Metadata = {
     metadataBase: new URL(SITE_CONFIG.url),
     alternates: {
         canonical: SITE_CONFIG.url,
-        languages: SITE_CONFIG.languages
+        languages: SITE_CONFIG.languages,
+        types: {
+            'application/rss+xml': `${SITE_CONFIG.url}/feed.xml`
+        }
     },
     openGraph: {
         title: SITE_CONFIG.name,

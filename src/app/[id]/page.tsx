@@ -7,7 +7,20 @@ import { notFound } from 'next/navigation'
 import { ArticleJsonLd } from '@/components/seo/JsonLd'
 import { SITE_CONFIG } from '@/config/site'
 import { BlogSite } from '@/features/blog'
-import { getBlog } from '@/features/blog/service/blog.service'
+import { getBlog, getBlogs } from '@/features/blog/service/blog.service'
+
+export const revalidate = 60
+
+export async function generateStaticParams() {
+    try {
+        const blogs = await getBlogs()
+        return blogs.map(blog => ({
+            id: blog.slug || blog.id || String(blog.number)
+        }))
+    } catch {
+        return []
+    }
+}
 
 interface BlogDetailPageProps {
     params: Promise<{ id: string }>
