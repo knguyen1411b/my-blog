@@ -1,0 +1,136 @@
+[
+    {
+        "id": "cong-cu-dich-pdf-giu-nguyen-cong-thuc-hinh-anh-va-bo-cuc-pdf-translate",
+        "slug": "cong-cu-dich-pdf-giu-nguyen-cong-thuc-hinh-anh-va-bo-cuc-pdf-translate",
+        "category": {
+            "name": "Công Cụ Hữu Ích",
+            "slug": "cong-cu-huu-ich",
+            "id": "cong-cu-huu-ich"
+        },
+        "seo": {
+            "metaDescription": "Cần dịch PDF nhưng không muốn mất công thức và bố cục? Khám phá PDF Translate – công cụ mã nguồn mở hỗ trợ dịch tài liệu và bảo toàn layout.",
+            "metaTitle": "Công Cụ Dịch PDF Giữ Nguyên Công Thức, Hình Ảnh Và Bố Cục – PDF Translate",
+            "keywords": ["PDF Translate", "dịch PDF giữ layout", "công thức toán", "mã nguồn mở"]
+        },
+        "views": 312,
+        "updatedAt": {
+            "type": "firestore/timestamp/1.0",
+            "seconds": 1789018844,
+            "nanoseconds": 186000000
+        },
+        "comments": [
+            {
+                "authorName": "Đặng Quốc Huy (Nghiên cứu sinh AI)",
+                "authorAvatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop",
+                "content": "Công cụ PDF Translate thực sự rất hữu ích khi đọc các paper trên arXiv. Cảm ơn tác giả đã chia sẻ bài viết rất chi tiết!",
+                "id": "cmt-pdf-01",
+                "createdAt": "02/09/2026 14:20"
+            }
+        ],
+        "tags": ["PDF", "AI", "Dịch thuật", "Mã nguồn mở", "Công cụ"],
+        "commentsCount": 1,
+        "likes": 54,
+        "summary": "Cần dịch PDF nhưng không muốn mất công thức và bố cục? Khám phá PDF Translate – công cụ mã nguồn mở hỗ trợ dịch tài liệu và bảo toàn layout.",
+        "title": "Công Cụ Dịch PDF Giữ Nguyên Công Thức, Hình Ảnh Và Bố Cục – PDF Translate",
+        "publishedAt": "01 tháng 09, 2026",
+        "status": "published",
+        "author": {
+            "role": "Fullstack Software Engineer",
+            "bio": "Kỹ sư phần mềm Fullstack chuyên sâu về Next.js 16, React 19, TypeScript, Java Spring Boot và giải pháp cơ sở dữ liệu đám mây Cloud Firestore.",
+            "avatarUrl": "https://github.com/knguyen1411b.png",
+            "avatar": "https://github.com/knguyen1411b.png",
+            "id": "knguyen1411b",
+            "name": "Nguyễn Đình Khánh Nguyên"
+        },
+        "coverImage": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1200&auto=format&fit=crop",
+        "readingTime": "2 phút",
+        "createdAt": {
+            "type": "firestore/timestamp/1.0",
+            "seconds": 1789018844,
+            "nanoseconds": 186000000
+        },
+        "content": "## Công cụ dịch PDF giữ nguyên công thức, hình ảnh và bố cục – PDF Translate\n\nDịch một tài liệu PDF chuyên ngành chưa bao giờ đơn giản.\n\nVới những tài liệu thông thường, bạn có thể copy nội dung, đưa vào Google Translate hoặc một công cụ AI rồi lấy bản dịch về. Nhưng với **giáo trình, tài liệu kỹ thuật, sách khoa học, tài liệu nghiên cứu hoặc PDF có nhiều công thức toán học**, cách làm này thường khiến bố cục bị phá vỡ.\n\n![Giao diện trực quan của công cụ PDF Translate với chế độ hiển thị song song hai ngôn ngữ](https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1200&auto=format&fit=crop)\n\nCông thức có thể biến dạng, hình ảnh bị lệch, bảng biểu không còn đúng vị trí và các đoạn văn sau khi dịch có thể dồn hoặc tràn sang khu vực khác.\n\n**PDF Translate** được xây dựng để giải quyết chính vấn đề đó: **dịch nội dung PDF đồng thời cố gắng bảo toàn bố cục, công thức, hình ảnh và các thành phần quan trọng của tài liệu gốc.**\n\n[Xem mã nguồn PDF Translate trên GitHub](https://github.com/knguyen1411b)\n\n---\n\n### PDF Translate là gì?\n\nPDF Translate là một công cụ mã nguồn mở được phát triển nhằm tự động hóa quy trình dịch tài liệu PDF. Thay vì chỉ trích xuất text thuần túy, công cụ này phân tích cấu trúc của file PDF, nhận diện các khối nội dung, công thức và hình ảnh, sau đó dịch phần văn bản và cố gắng tái cấu trúc lại tài liệu sao cho gần với bản gốc nhất.\n\n---\n\n### Sơ đồ kiến trúc xử lý tài liệu đa lớp\n\nDưới đây là kiến trúc pipeline xử lý văn bản, bóc tách layer đồ họa và bảo toàn công thức toán học LaTeX của hệ thống:\n\n![Sơ đồ kiến trúc nhận diện công thức LaTeX, tách layer đồ họa và tái tạo bố cục nguyên bản của PDF Translate](https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop)\n\nQuy trình bóc tách bao gồm:\n1. **Layout Analysis Engine**: Quét toàn bộ file PDF để bóc tách các bounding box văn bản, bảng biểu, vector graphics và công thức toán học.\n2. **LaTeX Equation Extractor**: Bảo toàn nguyên vẹn cú pháp toán học dưới định dạng TeX mà không làm xáo trộn các ký tự đặc biệt.\n3. **Neural Translation Pipeline**: Gửi các đoạn text cần dịch đến mô hình AI (OpenAI / Claude / DeepL) với ngữ cảnh nguyên vẹn.\n4. **Layout Reconstruction & Typesetting**: Tái tạo văn bản đã dịch khớp chính xác với tỷ lệ toạ độ (x, y, w, h) của trang gốc.\n\n---\n\n### Giữ nguyên công thức toán học sau khi dịch\n\nMột trong những thách thức lớn nhất của tài liệu học thuật là công thức toán.\n\n```latex\n% Ví dụ công thức toán học phức tạp được bảo toàn\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n```\n\nPDF Translate cố gắng nhận diện vùng chứa công thức để không can thiệp vào cú pháp toán, giúp tài liệu sau khi dịch vẫn giữ được tính chính xác về mặt khoa học.\n\n---\n\n### Kết luận\n\nNếu bạn thường xuyên phải làm việc với tài liệu nghiên cứu, giáo trình học thuật hoặc sách kỹ thuật dạng PDF, hãy trải nghiệm thử PDF Translate để tiết kiệm thời gian và giữ được vẻ đẹp nguyên bản của tài liệu.",
+        "featured": false
+    },
+    {
+        "id": "ky-nguyen-ai-pair-programming-tro-ly-antigravity-co-the-lam-duoc-gi-cho-du-an-cua-ban",
+        "seo": {
+            "keywords": [
+                "Antigravity",
+                "AI Pair Programming",
+                "Next.js 16",
+                "React 19",
+                "Cloud Firestore",
+                "Khánh Nguyên"
+            ],
+            "metaTitle": "Kỷ Nguyên AI Pair Programming: Trợ Lý Antigravity Có Thể Làm Được Gì Cho Dự Án Của Bạn?",
+            "metaDescription": "Tìm hiểu chi tiết khả năng của AI Pair Programmer Antigravity trong lập trình Fullstack hiện đại, tối ưu kiến trúc và xây dựng sản phẩm chất lượng cao."
+        },
+        "status": "published",
+        "category": {
+            "name": "Trí Tuệ Nhân Tạo",
+            "id": "tri-tue-nhan-tao",
+            "slug": "tri-tue-nhan-tao"
+        },
+        "readingTime": "5 phút",
+        "tags": [
+            "Antigravity",
+            "AI Pair Programming",
+            "Next.js 16",
+            "TypeScript",
+            "Cloud Firestore",
+            "Clean Architecture"
+        ],
+        "publishedAt": "10 tháng 09, 2026",
+        "comments": [
+            {
+                "id": "cmt-antigravity-01",
+                "createdAt": "10/09/2026 09:15",
+                "content": "Trải nghiệm pair programming với Antigravity thực sự ấn tượng! Khả năng tự động phân tích toàn bộ codebase và giữ code sạch, tuân thủ strict typescript và zero warning khi lint & build là điểm cộng cực lớn.",
+                "authorName": "Lê Tuấn Anh (Senior Frontend Lead)",
+                "authorAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
+            },
+            {
+                "createdAt": "10/09/2026 10:42",
+                "authorName": "Trần Minh Đức (Fullstack Dev)",
+                "id": "cmt-antigravity-02",
+                "authorAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+                "content": "Bộ giao diện Cyber-Titanium kết hợp bảng điều khiển tìm kiếm phím tắt Ctrl+K trên blog này nhìn siêu cuốn. Rất mong có thêm các bài phân tích sâu về Turbopack và Next.js 16!"
+            },
+            {
+                "id": "cmt-antigravity-03",
+                "createdAt": "10/09/2026 11:30",
+                "content": "Bài viết rất thực tế. Việc kết hợp Cloud Firestore với Next.js App Router cùng các security rules chặt chẽ sẽ giúp các bạn sinh viên và kỹ sư trẻ nắm vững kiến trúc Serverless hiện đại.",
+                "authorAvatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+                "authorName": "Phạm Hoàng Nam (Cloud Architect)"
+            }
+        ],
+        "commentsCount": 3,
+        "updatedAt": {
+            "type": "firestore/timestamp/1.0",
+            "seconds": 1789018843,
+            "nanoseconds": 757000000
+        },
+        "likes": 186,
+        "author": {
+            "avatarUrl": "https://github.com/knguyen1411b.png",
+            "id": "knguyen1411b",
+            "bio": "Kỹ sư phần mềm Fullstack chuyên sâu về Next.js 16, React 19, TypeScript, Java Spring Boot và giải pháp cơ sở dữ liệu đám mây Cloud Firestore.",
+            "avatar": "https://github.com/knguyen1411b.png",
+            "name": "Nguyễn Đình Khánh Nguyên",
+            "role": "Fullstack Software Engineer"
+        },
+        "title": "Kỷ Nguyên AI Pair Programming: Trợ Lý Antigravity Có Thể Làm Được Gì Cho Dự Án Của Bạn?",
+        "createdAt": {
+            "type": "firestore/timestamp/1.0",
+            "seconds": 1789018843,
+            "nanoseconds": 757000000
+        },
+        "slug": "ky-nguyen-ai-pair-programming-tro-ly-antigravity-co-the-lam-duoc-gi-cho-du-an-cua-ban",
+        "content": "## Kỷ Nguyên AI Pair Programming: Trợ Lý Antigravity Có Thể Làm Được Gì?\n\nTrong bức tranh phát triển phần mềm hiện đại, lập trình không còn đơn thuần là việc gõ từng dòng lệnh lặp đi lặp lại. Sự xuất hiện của **Google Antigravity** – hệ thống Agentic AI Coding Assistant thế hệ mới – đang định hình lại hoàn toàn phương thức các kỹ sư công nghệ xây dựng, kiểm thử và vận hành các sản phẩm số.\n\nKhác với các công cụ gợi ý code thông thường, Antigravity đóng vai trò như một **Senior Pair Programmer** thực thụ: thấu hiểu ngữ cảnh toàn bộ kiến trúc dự án, chủ động phát hiện lỗi tiềm ẩn, tự động đề xuất giải pháp tối ưu và thực thi công việc với độ chính xác cao.\n\n![Không gian làm việc Cyber-Titanium và Trí Tuệ Nhân Tạo](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop)\n\n---\n\n### 1. Tái Cấu Trúc Kiến Trúc Dự Án (Architectural Refactoring)\n\nMột trong những năng lực vượt trội nhất của Antigravity là khả năng **tổ chức và tái cơ cấu mã nguồn quy mô lớn** mà không làm đứt gãy luồng vận hành của ứng dụng:\n\n- **Chuyển đổi sang cấu trúc chuẩn `src/`**: Di dời các thư mục cốt lõi (`app`, `components`, `features`, `lib`, `types`), tự động cập nhật mọi đường dẫn import alias (`@/*`), cấu hình lại Tailwind CSS, PostCSS và TypeScript Path Mapping.\n- **Phân rã Feature-Based Modular Architecture**: Gom nhóm logic theo từng miền chức năng độc lập (`features/blog`, `features/home`, `features/auth`), giúp dự án mở rộng không giới hạn mà không bị chồng chéo mã.\n- **Bảo toàn tính nhất quán**: Loại bỏ mã rác, dọn dẹp các tệp dư thừa, đồng thời giữ nguyên toàn bộ comment và tài liệu nghiệp vụ quan trọng.\n\n```bash\n# Kiến trúc Feature-Driven sau khi tái cấu trúc\nsrc/\n├── app/                  # App Router Next.js 16 (Turbopack)\n├── components/           # UI Atoms/Molecules dùng chung\n├── features/\n│   ├── blog/             # Domain logic: Markdown, TOC, Reader, Comments\n│   └── home/             # Domain logic: Cyber Hero, Tech Matrix, Search Console\n└── lib/                  # Firebase SDK, Client Utilities, Cache Engine\n```\n\n---\n\n### 2. Thiết Kế Giao Diện Cyber-Titanium Đẳng Cấp (UI/UX Engineering)\n\nAntigravity không tạo ra các giao diện MVP sơ sài. Mọi thành phần thị giác đều được chăm chút theo triết lý **Rich Aesthetics**:\n\n- **Bảng điều khiển tìm kiếm Cyber Console**: Tích hợp phím tắt `Ctrl + K`, phím `/` tự động focus, nút xóa nhanh `Esc`, kết hợp hiệu ứng phát sáng Neon Cyan/Purple trên nền kính mờ Frosted Glass (`backdrop-blur-xl`).\n- **Telemetry Counter & Category Matrix**: Thống kê số lượng bài viết động theo từng danh mục, hiển thị huy hiệu count badge và trạng thái kết nối thời gian thực với Cloud Firestore.\n- **Trải nghiệm đọc bài viết cao cấp**:\n  - Tia laser theo dõi tiến độ đọc (`Reading Progress Laser`) đổi màu mượt mà theo tỷ lệ cuộn trang.\n  - Mục lục thông minh (`Table of Contents`) tự động bám theo và highlight đề mục đang đọc trong viewport.\n  - Phím tắt `J` / `K` điều hướng nhanh giữa các chương mục của bài viết.\n\n![Thiết kế giao diện tương lai với hiệu ứng ánh sáng Neon](https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop)\n\n---\n\n### 3. Giải Quyết Triệt Để Lỗi Hydration & Kiểm Soát Chất Lượng Tuyệt Đối\n\nKhi làm việc với các framework hiện đại như **React 19** và **Next.js 16**, các lỗi như Hydration Mismatch hay HTML Specification Violation rất dễ phát sinh nếu không kiểm soát chặt chẽ:\n\n> [!IMPORTANT]\n> **Ví dụ thực tế đã được giải quyết:**\n> Trong quá trình render Markdown, việc phần tử `<figure>` hoặc `<figcaption>` nằm lồng bên trong thẻ đoạn văn `<p>` vi phạm tiêu chuẩn HTML5 và gây ra cảnh báo nghiêm trọng từ trình duyệt. Antigravity tự động phân tích cây cú pháp AST của React-Markdown và thay thế container hợp lệ, triệt tiêu 100% cảnh báo.\n\nQuy trình bảo đảm chất lượng (Quality Assurance) nghiêm ngặt:\n1. **ESLint Audit**: Chạy lệnh linter nghiêm ngặt để đảm bảo `0 errors, 0 warnings`.\n2. **Next.js Production Build**: Xác thực toàn bộ kiểu dữ liệu TypeScript và quá trình đóng gói Turbopack của tất cả các route tĩnh lẫn động.\n3. **Responsive Testing**: Tối ưu hiển thị hoàn hảo từ màn hình di động nhỏ nhất đến màn hình siêu rộng UltraWide.\n\n---\n\n### 4. Tích Hợp Đám Mây & Cơ Sở Dữ Liệu Thời Gian Thực (Cloud Firestore)\n\nAntigravity hỗ trợ kết nối và chuẩn hóa toàn bộ luồng dữ liệu đám mây:\n- **Cloud Firestore**: Lưu trữ bài viết, số lượt xem, lượt thích và bình luận trực tiếp.\n- **Bảo mật nhiều tầng**: Thiết lập tệp `firestore.rules` phân quyền rõ ràng giữa độc giả và quản trị viên bài viết.\n- **Xử lý ảnh linh hoạt**: Cho phép hiển thị ảnh từ mọi domain bên ngoài (Unsplash, Firebase Storage, GitHub, Cloudinary) cùng hỗ trợ đồ họa vector SVG an toàn.\n\n```typescript\n// Tích hợp Firestore real-time với TypeScript Type-Safe\nexport interface IBlogDetail extends IBlog {\n    content: string\n    comments: IComment[]\n    likes: number\n    views: number\n}\n```\n\n---\n\n### Lời Kết\n\nAI Pair Programming với Antigravity không chỉ giúp rút ngắn thời gian phát triển từ nhiều tuần xuống vài giờ, mà còn nâng tầm tiêu chuẩn kỹ thuật của sản phẩm lên mức cao nhất. Hãy tiếp tục đồng hành cùng tôi để biến mọi ý tưởng công nghệ của bạn thành hiện thực!",
+        "coverImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
+        "featured": true,
+        "summary": "Khám phá toàn diện năng lực của Google Antigravity - Trợ lý AI Pair Programming thế hệ mới: từ tái cấu trúc kiến trúc quy mô lớn, thiết kế UI Cyber-Titanium cao cấp, khắc phục lỗi Hydration sâu cho đến tích hợp Cloud Firestore và DevOps chuẩn mực.",
+        "views": 1420
+    }
+]

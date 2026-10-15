@@ -13,14 +13,12 @@ export default function robots(): MetadataRoute.Robots {
         rules: [
             {
                 userAgent: '*',
-                allow: '/',
-                disallow: ['/admin', '/admin/*']
+                allow: '/'
             },
             {
                 // Cho phép các AI Agents / LLM Web Crawlers đọc dữ liệu để trả lời câu hỏi và trích dẫn
                 userAgent: SITE_CONFIG.aiCrawlers,
-                allow: ['/', '/*'],
-                disallow: ['/admin', '/admin/*']
+                allow: '/'
             }
         ],
         sitemap: `${SITE_CONFIG.url}/sitemap.xml`

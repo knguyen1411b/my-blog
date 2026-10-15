@@ -14,7 +14,9 @@ import {
 } from 'firebase/firestore'
 
 import type { IBlog, IBlogDetail } from '@/features/blog/types/blog'
+import { applyBlogContent, getLocalBlog, mergePublishedBlogs } from '@/lib/blog-content'
 import { db } from '@/lib/firebase'
+import { toSeoDate } from '@/lib/seo-date'
 
 const BLOGS_COLLECTION = 'blogs'
 
@@ -87,33 +89,39 @@ export async function getFirebaseBlogs(options: GetBlogsOptions = {}): Promise<I
 
         const snapshot = await getDocs(q)
 
-        if (snapshot.empty) {
-            return []
-        }
+        let posts = snapshot.docs
+            .map(docSnap => {
+                const data = docSnap.data() as Record<string, unknown>
+                return {
+                    id: docSnap.id,
+                    slug: (data.slug as string) || docSnap.id,
+                    title: (data.title as string) || '',
+                    summary: (data.summary as string) || '',
+                    content: (data.content as string) || '',
+                    category: data.category || { id: 'general', name: 'Công Cụ Hữu Ích', slug: 'cong-cu-huu-ich' },
+                    tags: (data.tags as string[]) || [],
+                    author: data.author || {
+                        name: 'Nguyễn Đình Khánh Nguyên',
+                        role: 'Fullstack Software Engineer',
+                        avatar: 'https://github.com/knguyen1411b.png'
+                    },
+                    publishedAt:
+                        toSeoDate(serializeTimestamp(data.publishedAt)) ||
+                        serializeTimestamp(data.publishedAt) ||
+                        'Vừa xong',
+                    createdAt: serializeTimestamp(data.createdAt) || undefined,
+                    updatedAt: serializeTimestamp(data.updatedAt) || undefined,
+                    seo: data.seo as IBlog['seo'],
+                    readingTime: (data.readingTime as string) || '2 phút',
+                    views: (data.views as number) || 0,
+                    status: (data.status as string) || 'published',
+                    featured: Boolean(data.featured),
+                    coverImage: (data.coverImage as string) || ''
+                } as IBlog
+            })
+            .map(applyBlogContent)
 
-        let posts = snapshot.docs.map(docSnap => {
-            const data = docSnap.data() as Record<string, unknown>
-            return {
-                id: docSnap.id,
-                slug: (data.slug as string) || docSnap.id,
-                title: (data.title as string) || '',
-                summary: (data.summary as string) || '',
-                content: (data.content as string) || '',
-                category: data.category || { id: 'general', name: 'Công Cụ Hữu Ích', slug: 'cong-cu-huu-ich' },
-                tags: (data.tags as string[]) || [],
-                author: data.author || {
-                    name: 'Nguyễn Đình Khánh Nguyên',
-                    role: 'Fullstack Software Engineer',
-                    avatar: 'https://github.com/knguyen1411b.png'
-                },
-                publishedAt: serializeTimestamp(data.publishedAt) || (data.publishedAt as string) || 'Vừa xong',
-                readingTime: (data.readingTime as string) || '2 phút',
-                views: (data.views as number) || 0,
-                status: (data.status as string) || 'published',
-                featured: Boolean(data.featured),
-                coverImage: (data.coverImage as string) || ''
-            } as IBlog
-        })
+        if (status === 'published') return mergePublishedBlogs(posts, { category, maxPosts })
 
         // Lọc category phía client nếu có
         if (category && category !== 'ALL') {
@@ -122,7 +130,7 @@ export async function getFirebaseBlogs(options: GetBlogsOptions = {}): Promise<I
 
         return posts
     } catch {
-        return []
+        return status === 'published' ? mergePublishedBlogs([], { category, maxPosts }) : []
     }
 }
 
@@ -131,16 +139,19 @@ export async function getFirebaseBlogs(options: GetBlogsOptions = {}): Promise<I
  * Tách riêng 2 try-catch để luôn thực hiện fallback getDoc ngay cả khi query slug thất bại.
  */
 export async function getFirebaseBlogBySlug(slugOrId: string): Promise<IBlogDetail | null> {
+    const localPost = getLocalBlog(slugOrId)
+    if (localPost) return localPost
+
     // 1. Thử tìm theo trường slug (có thể fail nếu thiếu index hoặc lỗi network)
     try {
         const blogsRef = collection(db, BLOGS_COLLECTION)
-        const q = query(blogsRef, where('slug', '==', slugOrId), limit(1))
+        const q = query(blogsRef, where('slug', '==', slugOrId), where('status', '==', 'published'), limit(1))
         const snapshot = await getDocs(q)
 
         if (!snapshot.empty) {
             const docSnap = snapshot.docs[0]
             const data = docSnap.data() as Record<string, unknown>
-            return sanitizeDoc(docSnap.id, data) as unknown as IBlogDetail
+            return applyBlogContent(sanitizeDoc(docSnap.id, data) as unknown as IBlogDetail)
         }
     } catch {
         // Slug query thất bại → tiếp tục thử bước 2
@@ -152,7 +163,7 @@ export async function getFirebaseBlogBySlug(slugOrId: string): Promise<IBlogDeta
         const docSnap = await getDoc(docRef)
         if (docSnap.exists()) {
             const data = docSnap.data() as Record<string, unknown>
-            return sanitizeDoc(docSnap.id, data) as unknown as IBlogDetail
+            return applyBlogContent(sanitizeDoc(docSnap.id, data) as unknown as IBlogDetail)
         }
     } catch {
         return null

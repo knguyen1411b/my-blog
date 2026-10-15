@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 
 import { Welcome } from '@/components/welcome'
 import type { IBlog } from '@/features/blog/types/blog'
@@ -28,19 +28,9 @@ export function HomeContainer({ initialBlogs }: { initialBlogs?: IBlog[] } = {})
     }, [])
 
     return (
-        <AnimatePresence mode="wait">
-            {welcome ? (
-                <Welcome key="welcome-screen" onDismiss={handleDismiss} />
-            ) : (
-                <motion.div
-                    key="main-home-content"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.45, ease: 'easeOut' }}
-                >
-                    <HomeSite initialBlogs={initialBlogs} />
-                </motion.div>
-            )}
-        </AnimatePresence>
+        <>
+            <HomeSite initialBlogs={initialBlogs} />
+            <AnimatePresence>{welcome && <Welcome key="welcome-screen" onDismiss={handleDismiss} />}</AnimatePresence>
+        </>
     )
 }

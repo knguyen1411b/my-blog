@@ -6,19 +6,17 @@
  * - GEO: Tối ưu hóa cho các hệ thống AI thế hệ mới (ChatGPT, Google Gemini, Perplexity AI, Claude)
  *   giúp nội dung được chọn làm nguồn trích dẫn trực tiếp (Citation & AI Overviews).
  */
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.ndknguyen.io.vn').replace(/\/$/, '')
+
 export const SITE_CONFIG = {
     name: 'Khanh Nguyen Blog · Engineering & Insights',
     shortName: 'KN Blog',
     description:
         'Blog công nghệ cá nhân của Nguyễn Đình Khánh Nguyên - Chia sẻ chuyên sâu về Next.js 16, React 19, TypeScript, kiến trúc đám mây Cloud Firestore và giải pháp AI Pair Programming.',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.ndknguyen.io.vn',
-    ogImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+    url: siteUrl,
+    ogImage: `${siteUrl}/ogImage.png`,
     portfolioUrl: 'https://ndknguyen.io.vn',
     locale: 'vi_VN',
-    languages: {
-        'vi-VN': 'https://blog.ndknguyen.io.vn',
-        'en-US': 'https://blog.ndknguyen.io.vn'
-    },
     author: {
         name: 'Nguyễn Đình Khánh Nguyên',
         role: 'Fullstack Software Engineer',

@@ -6,13 +6,15 @@ import Link from 'next/link'
 import { ArrowRight, Clock, Eye, Sparkles } from 'lucide-react'
 
 import type { IBlog } from '@/features/blog/types/blog'
+import { toSeoDate } from '@/lib/seo-date'
 
 export function BlogCard({ blog }: { blog: IBlog }) {
-    const publishedAt =
-        blog.publishedAt ||
-        (blog.createdAt
-            ? new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium' }).format(new Date(blog.createdAt))
-            : 'Mới xuất bản')
+    const publicationDate = toSeoDate(blog.publishedAt) || toSeoDate(blog.createdAt)
+    const publishedAt = publicationDate
+        ? new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeZone: 'Asia/Bangkok' }).format(
+              new Date(publicationDate)
+          )
+        : blog.publishedAt || 'Mới xuất bản'
 
     const authorName = blog.author?.name || blog.author?.login || 'Nguyễn Đình Khánh Nguyên'
     const authorAvatar = blog.author?.avatar || blog.author?.avatarUrl || 'https://github.com/knguyen1411b.png'

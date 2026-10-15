@@ -30,6 +30,7 @@ import {
 import { Loading } from '@/components/Loading'
 import { useBlogDetail } from '@/features/blog/hook/use-blog'
 import type { IBlogDetail, IComment } from '@/features/blog/types/blog'
+import { toSeoDate } from '@/lib/seo-date'
 import { extractToc } from '@/lib/toc'
 
 import { MarkdownRenderer } from './MarkdownRenderer'
@@ -64,11 +65,12 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
 
     const authorName = blog.author?.name || blog.author?.login || 'Nguyễn Đình Khánh Nguyên'
     const authorAvatar = blog.author?.avatar || blog.author?.avatarUrl || 'https://github.com/knguyen1411b.png'
-    const publishedDate =
-        blog.publishedAt ||
-        (blog.createdAt
-            ? new Intl.DateTimeFormat('vi-VN', { dateStyle: 'long' }).format(new Date(blog.createdAt))
-            : '01 tháng 09, 2026')
+    const publicationDate = toSeoDate(blog.publishedAt) || toSeoDate(blog.createdAt)
+    const publishedDate = publicationDate
+        ? new Intl.DateTimeFormat('vi-VN', { dateStyle: 'long', timeZone: 'Asia/Bangkok' }).format(
+              new Date(publicationDate)
+          )
+        : blog.publishedAt || 'Chưa cập nhật'
     const categoryName = blog.category?.name || 'Công Cụ Hữu Ích'
     const readingTime = blog.readingTime || '2 phút'
     const viewCount = blog.views ?? 208
@@ -261,6 +263,17 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
                     </div>
                 </header>
 
+                {toSeoDate(blog.updatedAt) && (
+                    <p className="mb-6 text-center text-xs text-slate-400">
+                        Cập nhật nội dung:{' '}
+                        <time dateTime={toSeoDate(blog.updatedAt)}>
+                            {new Intl.DateTimeFormat('vi-VN', { dateStyle: 'long', timeZone: 'Asia/Bangkok' }).format(
+                                new Date(toSeoDate(blog.updatedAt)!)
+                            )}
+                        </time>
+                    </p>
+                )}
+
                 {/* Featured 16:9 Cover Image Showcase Banner */}
                 {coverImage && (
                     <div className="relative mb-12 overflow-hidden rounded-3xl border border-white/10 bg-[#090d16] p-2 shadow-2xl">
@@ -291,7 +304,7 @@ export function BlogSite({ postId, initialBlog }: { postId: number | string; ini
                                     <span>Demo UI &amp; Architecture Showcase</span>
                                 </div>
                                 <span className="rounded-full border border-cyan-400/30 bg-cyan-950/60 px-3 py-1 font-mono text-[11px] font-semibold text-cyan-300 backdrop-blur-md">
-                                    1080P HD
+                                    Engineering Notes
                                 </span>
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from '@/config/site'
+import { toSeoDate } from '@/lib/seo-date'
 
 /**
  * Root Structured Data (JSON-LD)
@@ -18,17 +19,9 @@ export function RootJsonLd() {
                 name: SITE_CONFIG.name,
                 alternateName: SITE_CONFIG.shortName,
                 description: SITE_CONFIG.description,
-                inLanguage: ['vi-VN', 'en-US'],
+                inLanguage: 'vi-VN',
                 publisher: {
                     '@id': `${SITE_CONFIG.portfolioUrl}/#person`
-                },
-                potentialAction: {
-                    '@type': 'SearchAction',
-                    target: {
-                        '@type': 'EntryPoint',
-                        urlTemplate: `${SITE_CONFIG.url}/?search={search_term_string}`
-                    },
-                    'query-input': 'required name=search_term_string'
                 }
             },
             {
@@ -44,8 +37,8 @@ export function RootJsonLd() {
                     SITE_CONFIG.portfolioUrl,
                     SITE_CONFIG.url,
                     SITE_CONFIG.author.github,
-                    `https://twitter.com/${SITE_CONFIG.author.twitter.replace('@', '')}`,
-                    'https://www.linkedin.com/in/knguyen1411b'
+                    'https://www.facebook.com/knguyen1411b',
+                    'https://www.instagram.com/knguyen1411b/'
                 ],
                 knowsAbout: SITE_CONFIG.expertise,
                 description:
@@ -54,7 +47,12 @@ export function RootJsonLd() {
         ]
     }
 
-    return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema).replace(/</g, '\\u003c') }}
+        />
+    )
 }
 
 /**
@@ -93,8 +91,8 @@ export function ArticleJsonLd({
         description,
         abstract: description,
         image: [imageUrl],
-        datePublished,
-        dateModified: dateModified || datePublished,
+        datePublished: toSeoDate(datePublished),
+        dateModified: toSeoDate(dateModified) || toSeoDate(datePublished),
         inLanguage: 'vi-VN',
         keywords: tags?.join(', ') || '',
         proficiencyLevel: 'Expert',
@@ -144,8 +142,14 @@ export function ArticleJsonLd({
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema).replace(/</g, '\\u003c') }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c') }}
+            />
         </>
     )
 }

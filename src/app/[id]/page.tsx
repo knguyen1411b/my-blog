@@ -2,12 +2,13 @@ import { cache } from 'react'
 
 import type { Metadata } from 'next'
 
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 
 import { ArticleJsonLd } from '@/components/seo/JsonLd'
 import { SITE_CONFIG } from '@/config/site'
 import { BlogSite } from '@/features/blog'
 import { getBlog, getBlogs } from '@/features/blog/service/blog.service'
+import { toSeoDate } from '@/lib/seo-date'
 
 export const revalidate = 60
 
@@ -28,7 +29,8 @@ interface BlogDetailPageProps {
 
 const getCachedBlog = cache(async (id: string) => {
     try {
-        return await getBlog(id)
+        const blog = await getBlog(id)
+        return blog?.status === 'draft' ? null : blog
     } catch {
         return null
     }
@@ -45,13 +47,13 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
         }
     }
 
-    const title = blog.title
-    const description = (blog.summary || blog.bodyText || blog.content || '').slice(0, 160)
-    const publishedTime = blog.publishedAt || blog.createdAt
+    const title = blog.seo?.metaTitle || blog.title
+    const description = (blog.seo?.metaDescription || blog.summary || blog.bodyText || blog.content || '').slice(0, 160)
+    const publishedTime = toSeoDate(blog.publishedAt) || toSeoDate(blog.createdAt)
     const tags = blog.tags || []
     const author = blog.author?.name || SITE_CONFIG.author.name
     const articleUrl = `${SITE_CONFIG.url}/${blog.slug || id}`
-    const imageUrl = blog.coverImage || SITE_CONFIG.ogImage
+    const imageUrl = new URL(blog.seo?.ogImage || blog.coverImage || SITE_CONFIG.ogImage, SITE_CONFIG.url).toString()
 
     return {
         title,
@@ -67,6 +69,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
             type: 'article',
             url: articleUrl,
             publishedTime,
+            modifiedTime: toSeoDate(blog.updatedAt) || publishedTime,
             authors: [author],
             tags,
             locale: SITE_CONFIG.locale,
@@ -97,9 +100,10 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
     const blog = await getCachedBlog(id)
     if (!blog) notFound()
+    if (blog.slug && blog.slug !== id) permanentRedirect(`/${blog.slug}`)
 
     const articleUrl = `${SITE_CONFIG.url}/${blog.slug || id}`
-    const imageUrl = blog.coverImage || SITE_CONFIG.ogImage
+    const imageUrl = new URL(blog.seo?.ogImage || blog.coverImage || SITE_CONFIG.ogImage, SITE_CONFIG.url).toString()
 
     return (
         <>
@@ -108,7 +112,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 description={blog.summary || ''}
                 url={articleUrl}
                 imageUrl={imageUrl}
-                datePublished={blog.publishedAt || blog.createdAt || ''}
+                datePublished={toSeoDate(blog.publishedAt) || toSeoDate(blog.createdAt) || ''}
+                dateModified={toSeoDate(blog.updatedAt)}
                 tags={blog.tags}
             />
             <BlogSite postId={id} initialBlog={blog} />

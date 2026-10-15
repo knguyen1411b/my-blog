@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 
 import { SITE_CONFIG } from '@/config/site'
 import { getBlogs } from '@/features/blog/service/blog.service'
+import { toSeoDate } from '@/lib/seo-date'
 
 export const revalidate = 3600 // Cache RSS feed for 1 hour
 
@@ -13,7 +14,8 @@ export async function GET() {
             .map(blog => {
                 const slug = blog.slug || blog.id || String(blog.number)
                 const articleUrl = `${SITE_CONFIG.url}/${slug}`
-                const pubDate = blog.createdAt ? new Date(blog.createdAt).toUTCString() : new Date().toUTCString()
+                const published = toSeoDate(blog.publishedAt) || toSeoDate(blog.createdAt)
+                const pubDate = published ? new Date(published).toUTCString() : undefined
                 const description = (blog.summary || blog.bodyText || blog.content || '').slice(0, 300)
 
                 return `
@@ -22,7 +24,7 @@ export async function GET() {
             <link>${articleUrl}</link>
             <guid isPermaLink="true">${articleUrl}</guid>
             <description><![CDATA[${description}]]></description>
-            <pubDate>${pubDate}</pubDate>
+            ${pubDate ? `<pubDate>${pubDate}</pubDate>` : ''}
             <author>${SITE_CONFIG.author.name}</author>
             ${(blog.tags || []).map(tag => `<category><![CDATA[${tag}]]></category>`).join('')}
         </item>`

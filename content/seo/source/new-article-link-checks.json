@@ -1,0 +1,54 @@
+[
+    {
+        "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+        "status": 200
+    },
+    {
+        "url": "https://nextjs.org/docs/app/api-reference/functions/generate-metadata",
+        "status": 200
+    },
+    {
+        "url": "https://firebase.google.com/docs/firestore/security/rules-query",
+        "status": 200
+    },
+    {
+        "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics",
+        "status": 200
+    },
+    {
+        "url": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-ephemeral-storage.html",
+        "status": 200
+    },
+    {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html",
+        "status": 200
+    },
+    {
+        "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html",
+        "status": 200
+    },
+    {
+        "url": "https://nextjs.org/docs/app/guides/environment-variables",
+        "status": 200
+    },
+    {
+        "url": "https://nextjs.org/docs/app/getting-started/server-and-client-components",
+        "status": 200
+    },
+    {
+        "url": "https://firebase.google.com/docs/firestore/pricing",
+        "status": 200
+    },
+    {
+        "url": "https://firebase.google.com/docs/firestore/query-data/indexing",
+        "status": 200
+    },
+    {
+        "url": "https://firebase.google.com/docs/projects/api-keys",
+        "status": 200
+    },
+    {
+        "url": "https://nextjs.org/docs/app/guides/self-hosting#environment-variables",
+        "status": 200
+    }
+]

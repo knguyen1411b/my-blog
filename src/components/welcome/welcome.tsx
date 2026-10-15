@@ -162,14 +162,14 @@ export function Welcome({ onDismiss }: WelcomeProps = {}) {
                         </div>
 
                         {/* "Welcome To" Headline */}
-                        <motion.h1
+                        <motion.p
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.35, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                             className="text-2xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
                         >
                             Welcome To
-                        </motion.h1>
+                        </motion.p>
 
                         {/* "My Blog" Bold Gradient Subheading */}
                         <motion.div

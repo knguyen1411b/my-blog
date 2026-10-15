@@ -43,7 +43,6 @@ export const metadata: Metadata = {
     metadataBase: new URL(SITE_CONFIG.url),
     alternates: {
         canonical: SITE_CONFIG.url,
-        languages: SITE_CONFIG.languages,
         types: {
             'application/rss+xml': `${SITE_CONFIG.url}/feed.xml`
         }
@@ -91,7 +90,6 @@ export const metadata: Metadata = {
         'DC.language': 'vi',
         'DC.subject': 'Software Engineering, Next.js 16, React 19, TypeScript, Cloud Firestore, AI',
         // Tín hiệu chỉ dẫn cho AI Overviews và LLM Crawlers
-        'ai-content-declarations': 'human-authored',
         citation_author: SITE_CONFIG.author.name,
         citation_title: SITE_CONFIG.name
     },

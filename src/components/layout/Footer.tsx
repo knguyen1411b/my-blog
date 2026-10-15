@@ -105,9 +105,9 @@ export function Footer() {
                             {[
                                 { name: 'Trang Chủ Blog', href: '/', external: false },
                                 { name: 'Portfolio Chính', href: PORTFOLIO_URL, external: true },
-                                { name: 'Dự Án Đã Làm', href: `${PORTFOLIO_URL}/#projects`, external: true },
-                                { name: 'Về Tôi & Kỹ Năng', href: `${PORTFOLIO_URL}/#about`, external: true },
-                                { name: 'Liên Hệ Hợp Tác', href: `${PORTFOLIO_URL}/#contact`, external: true }
+                                { name: 'Dự Án Đã Làm', href: `${PORTFOLIO_URL}/#PortfolioSection`, external: true },
+                                { name: 'Về Tôi & Kỹ Năng', href: `${PORTFOLIO_URL}/#AboutSection`, external: true },
+                                { name: 'Liên Hệ Hợp Tác', href: `${PORTFOLIO_URL}/#ContactSection`, external: true }
                             ].map((nav, i) => (
                                 <li key={i}>
                                     <Link
