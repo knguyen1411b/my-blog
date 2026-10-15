@@ -58,8 +58,7 @@ const payload = __PAYLOAD__;
 const app = initializeApp(payload.config), auth = getAuth(app), db = getFirestore(app);
 const status = document.getElementById('status'), button = document.getElementById('publish'), form = document.getElementById('login');
 document.getElementById('target').textContent = 'Project: ' + payload.config.projectId + ' · Collection: ' + payload.collection + ' · ' + payload.entries.length + ' documents';
-document.getElementById('plan').textContent = payload.entries.map(item => (item.original ? 'UPDATE ' : 'CREATE ') + payload.collection + '/' + item.id).join('
-');
+document.getElementById('plan').textContent = payload.entries.map(item => (item.original ? 'UPDATE ' : 'CREATE ') + payload.collection + '/' + item.id).join('\n');
 form.addEventListener('submit', async event => {
     event.preventDefault(); status.textContent = 'Đang xác thực…'; button.disabled = true;
     try { await setPersistence(auth, inMemoryPersistence); const email = form.elements.email.value; const password = form.elements.password.value; await signInWithEmailAndPassword(auth, email, password); form.elements.password.value = ''; status.textContent = 'Đã đăng nhập: ' + auth.currentUser.email; button.disabled = false; }
@@ -96,8 +95,7 @@ button.addEventListener('click', async () => {
         });
         const verified = [];
         for (const write of applied) { const snapshot = await getDoc(write.ref); const current = snapshot.data(); if (!snapshot.exists() || Object.keys(write.data).some(key => !equal(current[key], write.data[key]))) throw new Error('Xác minh chưa khớp: ' + write.id); verified.push('OK ' + payload.collection + '/' + write.id); }
-        document.getElementById('plan').textContent = verified.join('
-'); status.textContent = 'ĐỒNG BỘ THÀNH CÔNG: ' + verified.length + '/' + payload.entries.length + ' documents đã xác minh.';
+        document.getElementById('plan').textContent = verified.join('\n'); status.textContent = 'ĐỒNG BỘ THÀNH CÔNG: ' + verified.length + '/' + payload.entries.length + ' documents đã xác minh.';
     } catch (error) { status.textContent = 'Chưa hoàn tất đồng bộ: ' + (error.code || error.message); button.disabled = false; }
 });
 </script></html>`
